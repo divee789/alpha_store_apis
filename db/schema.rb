@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 2020_08_02_023418) do
     t.string "phone_number_verification_token"
     t.string "phone_number"
     t.string "password_reset_token"
-    t.string "password"
+    t.string "password_digest"
     t.string "image_url"
     t.boolean "twofa_enabled"
     t.string "twofa_secret"
