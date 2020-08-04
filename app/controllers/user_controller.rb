@@ -2,8 +2,7 @@ class UserController < ApplicationController
     skip_before_action :authorize_request, only: :create
    
    def show
-     @user = User.find(params[:id])
-     json_response(@user)
+     json_response(current_user)
    end
    
    def create
@@ -14,19 +13,18 @@ class UserController < ApplicationController
    end
    
    def update
-    @user = User.find(params[:id])
-    @user.update(user_param)
+    current_user.update(user_param)
     head :no_content
    end
    
    def delete
-    User.find(params[:id]).destroy
+    current_user.destroy
     head :no_content
    end
 
    def show_items
-    @user = User.find(params[:id])
-    @item = @user.items.find_by!(id: params[:id]) if @user
+    @item = current_user.items.all
+    json_response(@item)
    end
 
    private

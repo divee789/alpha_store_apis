@@ -8,7 +8,7 @@ class ItemController < ApplicationController
 
     def create
         @item = current_user.items.create!(item_params)
-        json_response(@todo, :created)
+        json_response(@item, :created)
     end
 
     def show
