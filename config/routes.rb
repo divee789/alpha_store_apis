@@ -9,5 +9,7 @@ Rails.application.routes.draw do
 
    get 'market/items', to: 'item#index'
    post 'market/items', to: 'item#create'
-   put 'market/items', to: 'items#update'
+   patch 'market/items/:id', to: 'item#update'
+
+   get 'market/items/comment/:item_id', to: 'comment#index'
 end

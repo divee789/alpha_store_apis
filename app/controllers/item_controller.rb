@@ -12,18 +12,25 @@ class ItemController < ApplicationController
     end
 
     def show
-
+       @item = Item.find(params[:id])
+       json_response(@item)
     end
 
     def update
        @item = Item.find(params[:id])
        @item.update(item_params)
-       head :no_content
+       json_response(@item)
+    end
+
+    def delete
+        @item = Item.find(params[:id])
+        @item.destroy
+        json_response({ message: 'Item deleted successfuly' })
     end
 
     private
 
     def item_params
-      params.permit(:title, :description, :price, :image_url)
+      params.require(:item).permit(:title, :description, :price, :image_url)
     end
 end
