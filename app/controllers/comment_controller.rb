@@ -1,16 +1,21 @@
 class CommentController < ApplicationController
     
     def index
-        puts params[:item_id]
         @item = Item.find(params[:item_id])
-        @comments = @item.comments.all
+        @comments = @item.comments.includes(:user)
         json_response(@comments)
     end
 
     def create
         @item = Item.find(params[:item_id])
-        @comment = @item.comments.create!({body:comment_params.body, user_id: current_user.id})
+        @comment = @item.comments.create!(comment_params.merge(:user_id => current_user.id))
         json_response(@comment, :created)
+    end
+
+    def delete
+        @comment = Comment.find(params[:id])
+        @comment.destroy
+        json_response({ message: 'Comment deleted successfully' })
     end
 
     private

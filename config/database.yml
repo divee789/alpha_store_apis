@@ -14,7 +14,7 @@ default: &default
   encoding: utf8mb4
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: root
-  password: ""
+  password: <%= Rails.application.credentials.database_password %>
   host: localhost
 
 development:
@@ -51,4 +51,4 @@ production:
   <<: *default
   database: alphastore_production
   username: root
-  password:
+  password: <%= Rails.application.credentials.database_password %>

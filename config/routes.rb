@@ -12,4 +12,5 @@ Rails.application.routes.draw do
    patch 'market/items/:id', to: 'item#update'
 
    get 'market/items/comment/:item_id', to: 'comment#index'
+   post 'market/items/comment/:item_id', to: 'comment#create'
 end

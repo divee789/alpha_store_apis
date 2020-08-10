@@ -20,7 +20,7 @@ class Message
   end
 
   def self.account_created
-    'Account created successfully'
+    'Account created successfully, A Verification email has been sent to the email provided'
   end
 
   def self.account_not_created

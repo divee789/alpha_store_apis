@@ -2,7 +2,8 @@ class ItemController < ApplicationController
     skip_before_action :authorize_request, only: [:index, :show]
 
     def index
-        @items = Item.all
+        puts Rails.application.credentials.sendgrid_api_key
+        @items = Item.includes(:comments)
         json_response(@items)
     end
 
