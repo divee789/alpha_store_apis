@@ -12,10 +12,14 @@ Rails.application.routes.draw do
    post 'market/items', to: 'item#create'
    patch 'market/items/:id', to: 'item#update'
 
+   get 'market/items/rating/:id', to: 'item#get_item_ratings'
+   post 'market/items/rating/:id', to: 'item#rate_item'
+
    get 'market/items/comment/:item_id', to: 'comment#index'
    post 'market/items/comment/:item_id', to: 'comment#create'
 
    get 'market/items/order', to: 'order#show_all_user_orders'
    post 'market/items/order', to: 'order#create'
    get 'market/items/order/:order_id', to: 'order#show'
+
 end

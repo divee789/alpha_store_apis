@@ -3,13 +3,24 @@ class CommentController < ApplicationController
     def index
         @item = Item.find(params[:item_id])
         @comments = @item.comments.includes(:user)
-        json_response(@comments)
+        @response = @comments.map do |record|
+          record.attributes.merge(
+           'user' => record.user
+          )
+         end
+        json_response(@response)
     end
 
     def create
         @item = Item.find(params[:item_id])
         @comment = @item.comments.create!(comment_params.merge(:user_id => current_user.id))
-        json_response(@comment, :created)
+        @created_comment = Comment.where({:id => @comment.id}).includes(:user)
+        @response = @created_comment.map do |record|
+          record.attributes.merge(
+           'user' => record.user
+          )
+         end
+        json_response(@response, :created)
     end
 
     def delete

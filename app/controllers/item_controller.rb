@@ -2,9 +2,14 @@ class ItemController < ApplicationController
     skip_before_action :authorize_request, only: [:index, :show]
 
     def index
-        puts Rails.application.credentials.sendgrid_api_key
-        @items = Item.includes(:comments)
-        json_response(@items)
+        @items = Item.includes(:comments, :user)
+        @response = @items.map do |record|
+          record.attributes.merge(
+           'comments' => record.comments,
+           'user' => record.user
+        )
+        end
+        json_response(@response)
     end
 
     def create
@@ -29,9 +34,30 @@ class ItemController < ApplicationController
         json_response({ message: 'Item deleted successfuly' })
     end
 
+    def rate_item
+        @item = Item.find(params[:id])
+        @rating = @item.ratings.create(rating_params.merge(:user_id => current_user.id))
+        json_response({ message: 'Item rated successfully' })
+    end
+
+    def get_item_ratings
+        @item = Item.find(params[:id])
+        @ratings = @item.ratings.includes(:user)
+        @response = @ratings.map do |record|
+          record.attributes.merge(
+           'user' => record.user
+         )
+        end
+        json_response(@response)
+    end
+
     private
 
     def item_params
-      params.require(:item).permit(:title, :description, :price, :image_url)
+      params.require(:item).permit(:title, :description, :price, :image_url, :category)
+    end
+
+    def rating_params
+        params.permit(:rating)
     end
 end
