@@ -2,7 +2,7 @@ class OrderController < ApplicationController
 
     def index
       @orders = Order.all
-      json_response(@orders)
+      render json: @orders
     end
 
     def create
@@ -31,8 +31,8 @@ class OrderController < ApplicationController
     end
 
     def show_all_user_orders
-      @order = current_user.orders
-      json_response(@order)
+      @orders = current_user.orders
+      render json: @orders
     end
 
     private 

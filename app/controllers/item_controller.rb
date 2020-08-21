@@ -1,54 +1,34 @@
 class ItemController < ApplicationController
     skip_before_action :authorize_request, only: [:index, :show]
+    before_action :find_item, only: [:show, :update, :delete, :rate_item, :get_item_ratings]
 
     def index
-        @items = Item.includes(:comments, :user)
-        @response = @items.map do |record|
-          record.attributes.merge(
-           'comments' => record.comments,
-           'user' => record.user
-        )
-        end
-        json_response(@response)
+        @items = Item.all
+        render json: @items
     end
 
     def create
         @item = current_user.items.create!(item_params)
-        json_response(@item, :created)
+        render json: @item
     end
 
     def show
-       @item = Item.find(params[:id])
-       json_response(@item)
+      render json: @item
     end
 
     def update
-       @item = Item.find(params[:id])
        @item.update(item_params)
-       json_response(@item)
+       render json: @item
     end
 
     def delete
-        @item = Item.find(params[:id])
         @item.destroy
         json_response({ message: 'Item deleted successfuly' })
     end
 
-    def rate_item
-        @item = Item.find(params[:id])
-        @rating = @item.ratings.create(rating_params.merge(:user_id => current_user.id))
-        json_response({ message: 'Item rated successfully' })
-    end
-
-    def get_item_ratings
-        @item = Item.find(params[:id])
-        @ratings = @item.ratings.includes(:user)
-        @response = @ratings.map do |record|
-          record.attributes.merge(
-           'user' => record.user
-         )
-        end
-        json_response(@response)
+    def show_user_items
+       @item = current_user.items.all
+       render json: @item
     end
 
     private
@@ -59,5 +39,9 @@ class ItemController < ApplicationController
 
     def rating_params
         params.permit(:rating)
+    end
+
+    def find_item
+        @item = Item.find(params[:id])
     end
 end

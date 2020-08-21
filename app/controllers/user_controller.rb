@@ -2,8 +2,7 @@ class UserController < ApplicationController
   skip_before_action :authorize_request, only: :create
    
    def show
-    @user = User.where({:id => current_user.id}).select("id,first_name,last_name,email,image_url,phone_number,twofa_enabled")
-    json_response(@user)
+    render json: current_user
    end
    
    def create
@@ -20,27 +19,22 @@ class UserController < ApplicationController
    
    def update
     current_user.update(user_param)
-    json_response({ status: true, message: 'User Update Successful' })
+    json_response({ message: 'User Update Successful' })
    end
    
    def delete
     current_user.destroy
-    json_response({ status: true, message: 'User Removal Successful' })
+    json_response({ message: 'User Removal Successful' })
    end
 
    def verify_email
-     if email_param.email_verification_token != current_user.email_verification_token
-      json_response({ status: false, message: 'Email Verification Unsuccessful' })
+     if email_param[:email_verification_token] != current_user.email_verification_token
+      json_response({message: 'Email Verification Unsuccessful' })
      else
       current_user.email_verified = true
       current_user.save()
-      json_response({ status: true, message: 'Email Verification Successful' })
+      json_response({ message: 'Email Verification Successful' })
      end
-   end
-
-   def show_items
-    @item = current_user.items.all
-    json_response(@item)
    end
 
    private

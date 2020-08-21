@@ -1,26 +1,15 @@
 class CommentController < ApplicationController
-    
+
+    before_action :find_item, only: [:index, :create]
+
     def index
-        @item = Item.find(params[:item_id])
-        @comments = @item.comments.includes(:user)
-        @response = @comments.map do |record|
-          record.attributes.merge(
-           'user' => record.user
-          )
-         end
-        json_response(@response)
+        @comments = @item.comments.all
+        render json: @comments
     end
 
     def create
-        @item = Item.find(params[:item_id])
         @comment = @item.comments.create!(comment_params.merge(:user_id => current_user.id))
-        @created_comment = Comment.where({:id => @comment.id}).includes(:user)
-        @response = @created_comment.map do |record|
-          record.attributes.merge(
-           'user' => record.user
-          )
-         end
-        json_response(@response, :created)
+        render json: @comment
     end
 
     def delete
@@ -33,5 +22,9 @@ class CommentController < ApplicationController
 
     def comment_params
         params.require(:comment).permit(:body)
+    end
+
+    def find_item
+        @item = Item.find(params[:item_id])
     end
 end

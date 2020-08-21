@@ -6,10 +6,10 @@ Rails.application.routes.draw do
    patch 'user', to:'user#update'
    get 'user', to: 'user#show'
    delete 'user', to: 'user#delete'
-   get 'user/items', to: 'user#show_items'
 
    get 'market/items', to: 'item#index'
    post 'market/items', to: 'item#create'
+   get 'user/items', to: 'item#show_user_items'
    patch 'market/items/:id', to: 'item#update'
 
    get 'market/items/rating/:id', to: 'item#get_item_ratings'
@@ -21,5 +21,4 @@ Rails.application.routes.draw do
    get 'market/items/order', to: 'order#show_all_user_orders'
    post 'market/items/order', to: 'order#create'
    get 'market/items/order/:order_id', to: 'order#show'
-
 end
