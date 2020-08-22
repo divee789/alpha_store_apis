@@ -1,5 +1,12 @@
 class UserController < ApplicationController
-  skip_before_action :authorize_request, only: :create
+  before_action :authorize_admin_request, only: :index
+  before_action :authorize_request
+  skip_before_action :authorize_request, only: [:create, :index]
+
+  def index
+    @users = User.includes(:items)
+    render json: @users
+  end
    
    def show
     render json: current_user
@@ -52,11 +59,11 @@ class UserController < ApplicationController
    private
 
    def user_param
-    params.require(:user).permit(:first_name, :last_name, :email, :image_url, :phone_number)
+    params.require(:user).permit(:first_name, :last_name, :email, :image_url)
    end
 
    def user_params
-    params.permit(:first_name, :last_name, :email, :phone_number, :password)
+    params.permit(:first_name, :last_name, :email, :password)
    end
 
    def email_param

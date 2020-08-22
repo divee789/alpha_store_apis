@@ -37,7 +37,9 @@ Before you begin, ensure you have installed the latest version of:
 
 **TODOS**
 
-- Create APIs for admin level functionalities
+- Implement 2FA Authorization
+
+- Implement JWT public and private key handling via files
 
 - Protect the app from unauthorized domains.
 

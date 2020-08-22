@@ -23,4 +23,11 @@ Rails.application.routes.draw do
    get 'market/items/order', to: 'order#show_all_user_orders'
    post 'market/items/order', to: 'order#create'
    get 'market/items/order/:order_id', to: 'order#show'
+
+   # Admin APIs
+   post 'admin/login', to: 'authentication#authenticate_admin'
+   post 'admin/signup', to: 'admin#create'
+   get 'admin/users', to: 'user#index'
+   get 'admin/orders', to: 'order#index'
+   patch 'admin/orders/:id', to: 'order#update'
 end

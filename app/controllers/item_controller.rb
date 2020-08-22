@@ -1,6 +1,7 @@
 class ItemController < ApplicationController
-    skip_before_action :authorize_request, only: [:index, :show]
+    before_action :authorize_request
     before_action :find_item, only: [:show, :update, :delete, :rate_item, :get_item_ratings, :upload_image]
+    skip_before_action :authorize_request, only: [:index, :show]
 
     def index
         @items = Item.all

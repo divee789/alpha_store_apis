@@ -1,5 +1,5 @@
 class CommentController < ApplicationController
-
+    before_action :authorize_request
     before_action :find_item, only: [:index, :create]
 
     def index

@@ -10,7 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_19_211224) do
+ActiveRecord::Schema.define(version: 2020_08_22_163907) do
+
+  create_table "admins", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "first_name", null: false
+    t.string "last_name", null: false
+    t.string "email", null: false
+    t.string "password_reset_token"
+    t.string "password_digest"
+    t.string "image_url"
+    t.boolean "twofa_enabled", default: false, null: false
+    t.string "twofa_secret"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "body"
@@ -47,6 +60,9 @@ ActiveRecord::Schema.define(version: 2020_08_19_211224) do
   create_table "orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.decimal "total_amount", precision: 10, null: false
     t.integer "total_items", null: false
+    t.string "billing_address", null: false
+    t.boolean "processed", default: false, null: false
+    t.string "delivery_date"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -69,8 +85,6 @@ ActiveRecord::Schema.define(version: 2020_08_19_211224) do
     t.string "email", null: false
     t.string "email_verification_token"
     t.boolean "email_verified", default: false, null: false
-    t.string "phone_number_verification_token"
-    t.string "phone_number"
     t.string "password_reset_token"
     t.string "password_digest"
     t.string "image_url"

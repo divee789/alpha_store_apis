@@ -23,6 +23,10 @@ class Message
     'Account created successfully, A Verification email has been sent to the email provided'
   end
 
+  def self.admin_account_created
+    'Admin account creation successful'
+  end
+
   def self.account_not_created
     'Account could not be created'
   end

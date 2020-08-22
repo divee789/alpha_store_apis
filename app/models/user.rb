@@ -8,6 +8,6 @@ class User < ApplicationRecord
     has_many :orders
     has_many :ratings
     # Validations
-    validates_presence_of :first_name, :last_name, :email, :phone_number, :password_digest
-    validates_uniqueness_of :email, :phone_number
+    validates_presence_of :first_name, :last_name, :email, :password_digest
+    validates_uniqueness_of :email
 end
