@@ -37,14 +37,8 @@ Before you begin, ensure you have installed the latest version of:
 
 **TODOS**
 
-- Implement better error handling in the app
-
-- Use Cloudinary for image and file handling
-
 - Create APIs for admin level functionalities
 
-- Set up Cross Origin to protect the app from unauthorized domains.
-
-- Implement 3rd Party payment processors -- This could possibly be carried out on the client-side though.
+- Protect the app from unauthorized domains.
 
 - Deployment to DigitalOcean

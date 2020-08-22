@@ -37,6 +37,18 @@ class UserController < ApplicationController
      end
    end
 
+   def upload_image
+     response = Cloudinary::Uploader.upload(params[:image], options = {
+      folder: 'alpha_store/users',
+      width: 1000,
+      height: 500,
+      crop: 'limit',
+      public_id: "user-#{@user.email}-#{@user.id}",
+      })
+      current_user.update(:image_url => response["url"])
+      json_response({ message: 'User image uploaded successfuly' })
+    end
+
    private
 
    def user_param

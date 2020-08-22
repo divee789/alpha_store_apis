@@ -13,8 +13,5 @@ class UserNotifierMailer < ApplicationMailer
 
     sg = SendGrid::API.new(api_key: Rails.application.credentials.sendgrid_api_key)
     response = sg.client.mail._('send').post(request_body: mail.to_json)
-    puts response.status_code
-    puts response.body
-    puts response.headers
    end
 end

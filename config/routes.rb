@@ -5,12 +5,14 @@ Rails.application.routes.draw do
    post 'auth/verify_email', to: 'user#verify_email'
    patch 'user', to:'user#update'
    get 'user', to: 'user#show'
+   post 'user/upload', to: 'user#upload_image'
    delete 'user', to: 'user#delete'
 
    get 'market/items', to: 'item#index'
    post 'market/items', to: 'item#create'
    get 'user/items', to: 'item#show_user_items'
    patch 'market/items/:id', to: 'item#update'
+   post 'market/items/upload', to: 'item#upload_image'
 
    get 'market/items/rating/:id', to: 'item#get_item_ratings'
    post 'market/items/rating/:id', to: 'item#rate_item'
