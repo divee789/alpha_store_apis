@@ -37,6 +37,8 @@ Before you begin, ensure you have installed the latest version of:
 
 **TODOS**
 
+- Implement better error handling in the app
+
 - Use Cloudinary for image and file handling
 
 - Create APIs for admin level functionalities
