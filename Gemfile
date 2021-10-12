@@ -10,7 +10,7 @@ gem 'rails', '~> 6.0.3'
 gem 'mysql2', '>= 0.4.4'
 
 # Use Puma as the app server
-gem 'puma', '~> 4.1'
+gem 'puma', '~> 4.3'
 
 # Build JSON APIs with ease. 
 gem 'active_model_serializers'
